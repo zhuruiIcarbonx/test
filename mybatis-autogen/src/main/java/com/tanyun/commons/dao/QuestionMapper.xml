@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tanyun.commons.dao.QuestionMapper" >
+  <resultMap id="BaseResultMap" type="com.tanyun.commons.domain.Question" >
+    <id column="question_id" property="questionId" jdbcType="BIGINT" />
+    <result column="question_name" property="questionName" jdbcType="VARCHAR" />
+    <result column="question_desc" property="questionDesc" jdbcType="VARCHAR" />
+    <result column="parent_question_id" property="parentQuestionId" jdbcType="BIGINT" />
+    <result column="active_quesoption_id" property="activeQuesoptionId" jdbcType="BIGINT" />
+    <result column="question_type" property="questionType" jdbcType="VARCHAR" />
+    <result column="quesoption_type" property="quesoptionType" jdbcType="VARCHAR" />
+    <result column="required" property="required" jdbcType="VARCHAR" />
+    <result column="added_time" property="addedTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    question_id, question_name, question_desc, parent_question_id, active_quesoption_id, 
+    question_type, quesoption_type, required, added_time, last_modified_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tanyun.commons.domain.QuestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_survey_question
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_survey_question
+    where question_id = #{questionId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_survey_question
+    where question_id = #{questionId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tanyun.commons.domain.QuestionExample" >
+    delete from t_survey_question
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tanyun.commons.domain.Question" >
+    insert into t_survey_question (question_id, question_name, question_desc, 
+      parent_question_id, active_quesoption_id, question_type, 
+      quesoption_type, required, added_time, 
+      last_modified_time)
+    values (#{questionId,jdbcType=BIGINT}, #{questionName,jdbcType=VARCHAR}, #{questionDesc,jdbcType=VARCHAR}, 
+      #{parentQuestionId,jdbcType=BIGINT}, #{activeQuesoptionId,jdbcType=BIGINT}, #{questionType,jdbcType=VARCHAR}, 
+      #{quesoptionType,jdbcType=VARCHAR}, #{required,jdbcType=VARCHAR}, #{addedTime,jdbcType=TIMESTAMP}, 
+      #{lastModifiedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tanyun.commons.domain.Question" >
+    insert into t_survey_question
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionId != null" >
+        question_id,
+      </if>
+      <if test="questionName != null" >
+        question_name,
+      </if>
+      <if test="questionDesc != null" >
+        question_desc,
+      </if>
+      <if test="parentQuestionId != null" >
+        parent_question_id,
+      </if>
+      <if test="activeQuesoptionId != null" >
+        active_quesoption_id,
+      </if>
+      <if test="questionType != null" >
+        question_type,
+      </if>
+      <if test="quesoptionType != null" >
+        quesoption_type,
+      </if>
+      <if test="required != null" >
+        required,
+      </if>
+      <if test="addedTime != null" >
+        added_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionId != null" >
+        #{questionId,jdbcType=BIGINT},
+      </if>
+      <if test="questionName != null" >
+        #{questionName,jdbcType=VARCHAR},
+      </if>
+      <if test="questionDesc != null" >
+        #{questionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="parentQuestionId != null" >
+        #{parentQuestionId,jdbcType=BIGINT},
+      </if>
+      <if test="activeQuesoptionId != null" >
+        #{activeQuesoptionId,jdbcType=BIGINT},
+      </if>
+      <if test="questionType != null" >
+        #{questionType,jdbcType=VARCHAR},
+      </if>
+      <if test="quesoptionType != null" >
+        #{quesoptionType,jdbcType=VARCHAR},
+      </if>
+      <if test="required != null" >
+        #{required,jdbcType=VARCHAR},
+      </if>
+      <if test="addedTime != null" >
+        #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tanyun.commons.domain.QuestionExample" resultType="java.lang.Integer" >
+    select count(*) from t_survey_question
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_survey_question
+    <set >
+      <if test="record.questionId != null" >
+        question_id = #{record.questionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.questionName != null" >
+        question_name = #{record.questionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questionDesc != null" >
+        question_desc = #{record.questionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentQuestionId != null" >
+        parent_question_id = #{record.parentQuestionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.activeQuesoptionId != null" >
+        active_quesoption_id = #{record.activeQuesoptionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.questionType != null" >
+        question_type = #{record.questionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quesoptionType != null" >
+        quesoption_type = #{record.quesoptionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.required != null" >
+        required = #{record.required,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addedTime != null" >
+        added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModifiedTime != null" >
+        last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_survey_question
+    set question_id = #{record.questionId,jdbcType=BIGINT},
+      question_name = #{record.questionName,jdbcType=VARCHAR},
+      question_desc = #{record.questionDesc,jdbcType=VARCHAR},
+      parent_question_id = #{record.parentQuestionId,jdbcType=BIGINT},
+      active_quesoption_id = #{record.activeQuesoptionId,jdbcType=BIGINT},
+      question_type = #{record.questionType,jdbcType=VARCHAR},
+      quesoption_type = #{record.quesoptionType,jdbcType=VARCHAR},
+      required = #{record.required,jdbcType=VARCHAR},
+      added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tanyun.commons.domain.Question" >
+    update t_survey_question
+    <set >
+      <if test="questionName != null" >
+        question_name = #{questionName,jdbcType=VARCHAR},
+      </if>
+      <if test="questionDesc != null" >
+        question_desc = #{questionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="parentQuestionId != null" >
+        parent_question_id = #{parentQuestionId,jdbcType=BIGINT},
+      </if>
+      <if test="activeQuesoptionId != null" >
+        active_quesoption_id = #{activeQuesoptionId,jdbcType=BIGINT},
+      </if>
+      <if test="questionType != null" >
+        question_type = #{questionType,jdbcType=VARCHAR},
+      </if>
+      <if test="quesoptionType != null" >
+        quesoption_type = #{quesoptionType,jdbcType=VARCHAR},
+      </if>
+      <if test="required != null" >
+        required = #{required,jdbcType=VARCHAR},
+      </if>
+      <if test="addedTime != null" >
+        added_time = #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where question_id = #{questionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tanyun.commons.domain.Question" >
+    update t_survey_question
+    set question_name = #{questionName,jdbcType=VARCHAR},
+      question_desc = #{questionDesc,jdbcType=VARCHAR},
+      parent_question_id = #{parentQuestionId,jdbcType=BIGINT},
+      active_quesoption_id = #{activeQuesoptionId,jdbcType=BIGINT},
+      question_type = #{questionType,jdbcType=VARCHAR},
+      quesoption_type = #{quesoptionType,jdbcType=VARCHAR},
+      required = #{required,jdbcType=VARCHAR},
+      added_time = #{addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where question_id = #{questionId,jdbcType=BIGINT}
+  </update>
+</mapper>

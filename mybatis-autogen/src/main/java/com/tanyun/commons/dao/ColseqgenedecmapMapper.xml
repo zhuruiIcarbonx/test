@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tanyun.commons.dao.ColseqgenedecmapMapper" >
+  <resultMap id="BaseResultMap" type="com.tanyun.commons.domain.Colseqgenedecmap" >
+    <id column="colseqgenedecmap_id" property="colseqgenedecmapId" jdbcType="BIGINT" />
+    <result column="collectionSeqInfo_id" property="collectionseqinfoId" jdbcType="BIGINT" />
+    <result column="genedecunit_id" property="genedecunitId" jdbcType="BIGINT" />
+    <result column="added_time" property="addedTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    colseqgenedecmap_id, collectionSeqInfo_id, genedecunit_id, added_time, last_modified_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tanyun.commons.domain.ColseqgenedecmapExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_gene_colseqgenedecmap
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_gene_colseqgenedecmap
+    where colseqgenedecmap_id = #{colseqgenedecmapId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_gene_colseqgenedecmap
+    where colseqgenedecmap_id = #{colseqgenedecmapId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tanyun.commons.domain.ColseqgenedecmapExample" >
+    delete from t_gene_colseqgenedecmap
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tanyun.commons.domain.Colseqgenedecmap" >
+    insert into t_gene_colseqgenedecmap (colseqgenedecmap_id, collectionSeqInfo_id, 
+      genedecunit_id, added_time, last_modified_time
+      )
+    values (#{colseqgenedecmapId,jdbcType=BIGINT}, #{collectionseqinfoId,jdbcType=BIGINT}, 
+      #{genedecunitId,jdbcType=BIGINT}, #{addedTime,jdbcType=TIMESTAMP}, #{lastModifiedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tanyun.commons.domain.Colseqgenedecmap" >
+    insert into t_gene_colseqgenedecmap
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="colseqgenedecmapId != null" >
+        colseqgenedecmap_id,
+      </if>
+      <if test="collectionseqinfoId != null" >
+        collectionSeqInfo_id,
+      </if>
+      <if test="genedecunitId != null" >
+        genedecunit_id,
+      </if>
+      <if test="addedTime != null" >
+        added_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="colseqgenedecmapId != null" >
+        #{colseqgenedecmapId,jdbcType=BIGINT},
+      </if>
+      <if test="collectionseqinfoId != null" >
+        #{collectionseqinfoId,jdbcType=BIGINT},
+      </if>
+      <if test="genedecunitId != null" >
+        #{genedecunitId,jdbcType=BIGINT},
+      </if>
+      <if test="addedTime != null" >
+        #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tanyun.commons.domain.ColseqgenedecmapExample" resultType="java.lang.Integer" >
+    select count(*) from t_gene_colseqgenedecmap
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_gene_colseqgenedecmap
+    <set >
+      <if test="record.colseqgenedecmapId != null" >
+        colseqgenedecmap_id = #{record.colseqgenedecmapId,jdbcType=BIGINT},
+      </if>
+      <if test="record.collectionseqinfoId != null" >
+        collectionSeqInfo_id = #{record.collectionseqinfoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.genedecunitId != null" >
+        genedecunit_id = #{record.genedecunitId,jdbcType=BIGINT},
+      </if>
+      <if test="record.addedTime != null" >
+        added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModifiedTime != null" >
+        last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_gene_colseqgenedecmap
+    set colseqgenedecmap_id = #{record.colseqgenedecmapId,jdbcType=BIGINT},
+      collectionSeqInfo_id = #{record.collectionseqinfoId,jdbcType=BIGINT},
+      genedecunit_id = #{record.genedecunitId,jdbcType=BIGINT},
+      added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tanyun.commons.domain.Colseqgenedecmap" >
+    update t_gene_colseqgenedecmap
+    <set >
+      <if test="collectionseqinfoId != null" >
+        collectionSeqInfo_id = #{collectionseqinfoId,jdbcType=BIGINT},
+      </if>
+      <if test="genedecunitId != null" >
+        genedecunit_id = #{genedecunitId,jdbcType=BIGINT},
+      </if>
+      <if test="addedTime != null" >
+        added_time = #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where colseqgenedecmap_id = #{colseqgenedecmapId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tanyun.commons.domain.Colseqgenedecmap" >
+    update t_gene_colseqgenedecmap
+    set collectionSeqInfo_id = #{collectionseqinfoId,jdbcType=BIGINT},
+      genedecunit_id = #{genedecunitId,jdbcType=BIGINT},
+      added_time = #{addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where colseqgenedecmap_id = #{colseqgenedecmapId,jdbcType=BIGINT}
+  </update>
+</mapper>

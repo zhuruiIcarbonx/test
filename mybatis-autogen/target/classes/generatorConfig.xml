@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 自己修改jar的路径 -->
+    <classPathEntry location="D:\mysql-connector-java-5.1.20.jar" />
+
+    <context id="MySqlTables" targetRuntime="MyBatis3">
+        <!-- 关闭注解信息 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        <!-- 自己修改JDBC的路径 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://112.74.198.115:3306/tanyun_boss" userId="root"
+                        password="bgiGenomics_boss">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- model的配置 -->
+        <javaModelGenerator targetPackage="com.tanyun.commons.domain"
+                            targetProject="C:\Users\zr\Desktop\112.74.198.115\pom\mybatis-autogen\src\main\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- mybatis的xml的配置 -->
+        <sqlMapGenerator targetPackage="com.tanyun.commons.dao"
+                         targetProject="C:\Users\zr\Desktop\112.74.198.115\pom\mybatis-autogen\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- mapper的配置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.tanyun.commons.dao" targetProject="C:\Users\zr\Desktop\112.74.198.115\pom\mybatis-autogen\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <table tableName="t_admin" domainObjectName="Admin"></table>
+        <table tableName="t_admin_role" domainObjectName="AdminRole"></table>
+        <table tableName="t_dict" domainObjectName="t_dict"></table>
+        <table tableName="t_gene_collectioninfo" domainObjectName="Collectioninfo"></table>
+        <table tableName="t_gene_collectionseqinfo" domainObjectName="Collectionseqinfo"></table>
+        <table tableName="t_gene_colseqgenedecmap" domainObjectName="Colseqgenedecmap"></table>
+        <table tableName="t_gene_genedecunit" domainObjectName="Genedecunit"></table>
+        <table tableName="t_gene_seqscope" domainObjectName="Seqscope"></table>
+        <table tableName="t_product" domainObjectName="Product"></table>
+        <table tableName="t_product_processinfo" domainObjectName="Processinfo"></table>
+        <table tableName="t_product_productrepdatamap" domainObjectName="Productrepdatamap"></table>
+        <table tableName="t_repdata_genereportmap" domainObjectName="Genereportmap"></table>
+        <table tableName="t_repdata_repdataunit" domainObjectName="Repdataunit"></table>
+        <table tableName="t_repdata_scene" domainObjectName="Scene"></table>
+        <table tableName="t_repdata_template" domainObjectName="Template"></table>
+        <table tableName="t_survey" domainObjectName="Survey"></table>
+        <table tableName="t_survey_domain" domainObjectName="SurveyDomain"></table>
+        <table tableName="t_survey_quesoption" domainObjectName="Quesoption"></table>
+        <table tableName="t_survey_question" domainObjectName="Question"></table>
+        <table tableName="t_survey_surveyquesmap" domainObjectName="Surveyquesmap"></table>
+        <table tableName="t_user" domainObjectName="User"></table>
+        <table tableName="t_user_thirdsystem" domainObjectName="Thirdsystem"></table>
+        <table tableName="t_user_thirdusermap" domainObjectName="Thirdusermap"></table>
+
+
+
+
+    </context>
+</generatorConfiguration>

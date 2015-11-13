@@ -1,0 +1,588 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 20px;
+}
+
+hr {
+    margin: 15px 0 15px;
+}
+
+#search_btn,
+#add_btn,
+#delete_btn,
+.clear_btn{
+    width: 60px;
+}
+
+#search input[type="text"],
+#search_large input[type="text"]{
+    width: 120px;
+    height: 18px;
+    margin-right: 10px;
+    vertical-align: middle;
+    border: 1px solid #bababa;
+    border-radius: 3px;
+}
+
+#search,
+#operate {
+    margin: 20px auto;
+    width: 900px;
+}
+
+#search_large,
+#operate_large {
+    margin: 20px auto;
+}
+
+#search ul,
+#search_large ul{
+    margin-bottom: 8px;
+}
+
+#dataTotalNum_display {
+    float: right;
+    margin-top: 19px;
+    font-size: 15px;
+}
+
+#info {
+    margin: 15px auto;
+    width: 900px;
+    text-align: center;
+}
+
+#info_large {
+    margin: 15px auto;
+    text-align: center;
+}
+
+#info_top,
+#info_content {
+    width: 900px;
+    margin: 0 auto;
+}
+
+#info_top_large,
+#info_content_large {
+    width: 1050px;
+    margin: 0 auto;
+}
+
+#info_top li,
+#info_top_large li {
+    background-color: #cecece;
+}
+
+.canOrder{
+    cursor: pointer;
+}
+
+#info ul,
+#info_large ul {
+    overflow: hidden;
+}
+
+.mostlargest_content_li {
+    width: 250px;
+    border: 1px solid #000;
+    display: block;
+    text-align: center;
+    float: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 28px;
+    line-height: 28px;
+}
+
+.large_content_li {
+    width: 190px;
+    border: 1px solid #000;
+    display: block;
+    text-align: center;
+    float: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 28px;
+    line-height: 28px;
+}
+
+.more_content_li {
+    width: 150px;
+    border: 1px solid #000;
+    display: block;
+    text-align: center;
+    float: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 28px;
+    line-height: 28px;
+}
+
+.middle_content_li {
+    width: 125px;
+    border: 1px solid #000;
+    display: block;
+    text-align: center;
+    float: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 28px;
+    line-height: 28px;
+}
+
+.less_content_li {
+    width: 100px;
+    border: 1px solid #000;
+    display: block;
+    text-align: center;
+    float: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 28px;
+    line-height: 28px;
+}
+
+.smallest_content_li {
+    width: 70px;
+    border: 1px solid #000;
+    display: block;
+    text-align: center;
+    float: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 28px;
+    line-height: 28px;
+}
+
+#info_content ul:hover li {
+    background-color: #fff8dc;
+}
+
+li a {
+    font-size: 13px;
+    color: #000;
+    margin: 0 2px 0;
+}
+
+li a:hover {
+    color: red;
+}
+
+.remove_topBorder {
+    margin-top: -1px;
+}
+
+.remove_rightBorder {
+    margin-right: -1px;
+}
+
+/*弹出层addLayer和modifyLayer*/
+#AMLayer {
+    padding: 10px 5px 10px 20px;
+    position: absolute;
+    left: 35%;
+    display: none;
+    font-size: 14px;
+    font-family: "微软雅黑";
+    background-color: #ffffff;
+    box-shadow: 1px 1px 10px #000;
+    border-radius: 7px;
+    z-index: 3;
+}
+
+.addAndModifyLayer {
+    width: 260px;
+}
+
+.addAndModifyLayer_medium {
+    width: 300px;
+}
+
+.addAndModifyLayer_large {
+    width: 350px;
+}
+
+#AMLayer div {
+    margin-top: 10px;
+}
+
+select {
+    width: 152px;
+    height: 20px;
+    margin-left: 16px;
+    vertical-align: middle;
+    border: 1px solid #bababa;
+    border-radius: 3px;
+}
+
+input[type='text'] {
+    width: 150px;
+    height: 18px;
+    margin-left: 16px;
+    vertical-align: middle;
+    border: 1px solid #bababa;
+    border-radius: 3px;
+}
+
+/*特殊的文本框，为了对齐效果*/
+#number_dataDictionary,
+#name_dataDictionary,
+#processInfo_number,
+#processInfo_name,
+#processInfo_description,
+#sampleCollectorType,
+#sampleLogisticType,
+#geneDecodeUnit_unitCode_AMLayer,
+#maximumValue_AMLayer,
+#minimumValue_AMLayer,
+#name_gb2User {
+    margin-left: 30px;
+}
+
+#userpassword_gb2User,
+#sex_gb2User {
+    margin-left: 44px;
+}
+
+/*---------*/
+
+input#search_text {
+    margin-left: 0;
+    padding-left: 5px;
+}
+
+span#showAbout {
+    margin: 10px;
+}
+
+/*问题表内的各种信息相关*/
+span#showAboutParent,
+span#showAboutType,
+span#showAboutOType {
+    margin: 0 10px 0;
+    max-width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+/*按钮样式设置*/
+.ok_cancel_btn {
+    text-align: center;
+    margin: 10px auto 0;
+}
+
+.ok_btn,
+.cancel_btn {
+    width: 52px;
+    height: 24px;
+    margin: 10px 8px 10px 10px;
+    border: 0;
+    border-radius: 3px;
+    background-color: #518bd4;
+    color: #fff;
+    font-size: 14px;
+    font-family: "微软雅黑";
+}
+
+.ok_btn:hover,
+.cancel_btn:hover {
+    background-color: #6297da;
+}
+
+.ok_btn:active,
+.cancel_btn:active {
+    background-color: #417ecb;
+}
+
+/*弹出层deleteLayer*/
+#deleteLayer {
+    width: 150px;
+    padding: 20px 20px 10px;
+    font-family: "微软雅黑";
+    position: absolute;
+    top: 130px;
+    left: 35%;
+    background-color: #ffffff;
+    display: none;
+    box-shadow: 1px 1px 10px #000;
+    border-radius: 7px;
+    z-index: 3;
+}
+
+#ok_btn_deleteLayer {
+    margin: 20px 0 0 20px;
+}
+
+/*页面跳转栏*/
+.pagination {
+    margin: 20px auto;
+}
+
+/*遮罩层*/
+#shelterLayer {
+    position: absolute;
+    z-index: 2;
+    background-color: lightgrey;
+    display: none;
+    top: 0;
+    left: 0;
+    opacity: 0.3;
+    width: 100%;
+    height: 100%;
+}
+
+/*reportDataUnit多选框*/
+#listLayer {
+    position: absolute;
+    display: none;
+    box-shadow: 1px 1px 10px #000;
+    border-radius: 7px;
+    background-color: #fff;
+    left: 30%;
+    z-index: 5;
+    font-family: "微软雅黑";
+}
+
+#listLayer_title {
+    font-size: 20px;
+    background-color: #518bd4;
+    color: #fff;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 15px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.margin_top_bottom {
+    margin: 15px 0 10px;
+    height: 20px;
+}
+
+#listLayer_left,
+#listLayer_right {
+    float: left;
+    margin: 0 15px 0;
+}
+
+#clearSearch {
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    vertical-align: middle
+}
+
+img {
+    width: 80px;
+    height: 80px;
+}
+
+#listLayer_left_content,
+#listLayer_right_content,
+#surveyQuestionListLayer_left_content,
+#surveyQuestionListLayer_right_content{
+    height: 300px;
+    width: 200px;
+    background-color: #EDEDED;
+    border: 1px solid #bababa;
+    border-radius: 7px;
+    overflow: auto;
+    font-size: 14px;
+}
+
+#listLayer li,
+#parentQuestionLayer li {
+    padding-left: 10px;
+    list-style: none;
+}
+
+#listLayer li:hover,
+#parentQuestionLayer li:hover {
+    background-color: #f5fffa;
+    color: #000;
+}
+
+#listLayer li:active,
+#parentQuestionLayer li:active {
+    background-color: #285e8e;
+    color: #ffffff;
+}
+
+#ok_cancel_btn_listLayer,
+#ok_cancel_btn_optionsLayer {
+    clear: both;
+    text-align: right;
+    margin: 0 10px;
+}
+
+/*问卷调查界面问题选项选择弹出框*/
+#surveyQuestionListLayer_left_content ul,
+#surveyQuestionListLayer_right_content ul{
+    display: none;
+    margin-left: 20px;
+}
+.question-arrow{
+    margin-right: 5px;
+    display: inline-block;
+    width: 10px;
+}
+.question-up {
+    width: 0;
+    height: 0;
+    border-bottom: 5px solid transparent;
+    border-top: 5px solid transparent;
+    border-left: 10px solid #000;
+}
+.question-down {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 10px solid #000;
+}
+
+.red{
+    color: red;
+}
+
+#surveyQuestionListLayer_right_content img{
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    display: none;
+    margin-left: 10px;
+
+}
+
+/*多选框右边栏目每个li的移除*/
+.rightX {
+    cursor: pointer;
+    width: 12px;
+    height: 12px;
+    display: none;
+    margin-left: 10px;
+}
+
+/*question问题界面的选项选择框*/
+/*question问题类型选择框*/
+#questionOptionsLayer,
+#questionTypeLayer,
+#itemTypeLayer {
+    position: absolute;
+    display: none;
+    box-shadow: 1px 1px 10px #000;
+    border-radius: 7px;
+    background-color: #fff;
+    padding: 15px;
+    top: 150px;
+    left: 38%;
+    z-index: 5;
+}
+
+#questionOptionsLayer_top {
+    width: 300px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    background-color: lightgrey;
+}
+
+#questionOptionsLayer li {
+    list-style: none;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#questionOptionsLayer img {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+    cursor: pointer;
+    vertical-align: middle
+}
+
+#questionTypeLayer_content ul,
+#itemTypeLayer_content ul {
+    padding-left: 20px;
+}
+
+#questionTypeLayer_content li,
+#itemTypeLayer_content li {
+    list-style: none;
+    border: 0;
+}
+
+#questionTypeLayer_content a,
+#itemTypeLayer_content a {
+    text-decoration: none;
+    color: #000;
+    font-size: 15px;
+}
+
+.selected_a {
+    background-color: yellow;
+    border: 1px solid;
+}
+
+/*父问题选择框*/
+#parentQuestionLayer {
+    position: absolute;
+    display: none;
+    box-shadow: 1px 1px 10px #000;
+    border-radius: 7px;
+    background-color: #fff;
+    top: 40px;
+    left: 38%;
+    z-index: 5;
+}
+
+#listLayer_left_content_parentQuestionLayer {
+    height: 200px;
+    width: 200px;
+    background-color: #EDEDED;
+    border: 1px solid;
+    overflow: auto;
+}
+
+.selected_li {
+    color: #fff;
+    background-color: steelblue;
+}
+
+/*正序,倒序箭头效果*/
+.DESC{
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid #000;
+    float: right;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+.ASC{
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 10px solid #000;
+    float: right;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+

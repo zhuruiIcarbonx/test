@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:task="http://www.springframework.org/schema/task"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<!-- Properties文件读取配置，base的properties -->
+	<!-- 	<context:property-placeholder location="classpath:configs. properties" /> -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:configs-${env}.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- (Annotation方式配置services)enable component scanning (beware that this
+		does not enable mapper scanning!) 扫描除controller之外的bean -->
+	<context:component-scan base-package="com.tanyun.commons" >
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+	<!-- enable autowire -->
+	<context:annotation-config />
+
+	<!-- enable transaction demarcation with annotations -->
+	<tx:annotation-driven />
+
+	<task:annotation-driven/>
+	<!-- 数据源(使用连接池)
+	http://commons.apache.org/proper/commons-dbcp/apidocs/org/apache/commons/dbcp/BasicDataSource.html
+	长期idle连接的处理:
+Mysql服务端会断开超过8小时的空闲连接，如果系统只在白天工作时间被使用，DBCP的连接就很容易被断开的连接，而且DBCP对jdbc url里设置autoReconnect=true是无效。
+
+更好的做法DBCP主动断开超时的连接。
+
+#运行判断连接超时任务的时间间隔，单位为毫秒，默认为-1，即不执行任务。
+timeBetweenEvictionRunsMillis=3600000
+
+#连接的超时时间，默认为半小时。
+minEvictableIdleTimeMillis=3600000
+	-->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+
+		<property name="initialSize" value="2"/>
+		<property name="maxActive" value="10"/>
+		<property name="maxWait" value="1000"/>
+		<property name="maxIdle" value="4"/>
+		<property name="minIdle" value="2"/>
+		<property name="timeBetweenEvictionRunsMillis" value="3600000"/>
+		<property name="minEvictableIdleTimeMillis" value="3600000"/>
+
+		<property name="testOnBorrow" value="false"/>
+		<property name="testOnReturn" value="false"/>
+		<property name="testWhileIdle" value="true"/>
+		<property name="validationQuery" value="select 1 from dual"/>
+	</bean>
+
+	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+	<bean id="transactionManager"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+	<!-- define the SqlSessionFactory, notice that configLocation is not needed
+		when you use MapperFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.tanyun.commons.domain" />
+	</bean>
+
+	<!-- scan for mappers and let them be autowired Mapper接口所在包名，Spring会自动查找其下的Mapper
+		此种方式只适合mybatis的xml和Mapper文件在同一路径下并名称相同的情况下。如有路径或不同名称不同请参照附件说明 -->
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.tanyun.commons.dao" />
+	</bean>
+
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+</beans>

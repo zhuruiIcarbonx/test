@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tanyun.commons.dao.CollectioninfoMapper" >
+  <resultMap id="BaseResultMap" type="com.tanyun.commons.domain.Collectioninfo" >
+    <id column="collectioninfo_id" property="collectioninfoId" jdbcType="BIGINT" />
+    <result column="collectioninfo_number" property="collectioninfoNumber" jdbcType="VARCHAR" />
+    <result column="collectioninfo_name" property="collectioninfoName" jdbcType="VARCHAR" />
+    <result column="collectionInfo_desc" property="collectioninfoDesc" jdbcType="VARCHAR" />
+    <result column="added_time" property="addedTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    collectioninfo_id, collectioninfo_number, collectioninfo_name, collectionInfo_desc, 
+    added_time, last_modified_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tanyun.commons.domain.CollectioninfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_gene_collectioninfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_gene_collectioninfo
+    where collectioninfo_id = #{collectioninfoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_gene_collectioninfo
+    where collectioninfo_id = #{collectioninfoId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tanyun.commons.domain.CollectioninfoExample" >
+    delete from t_gene_collectioninfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tanyun.commons.domain.Collectioninfo" >
+    insert into t_gene_collectioninfo (collectioninfo_id, collectioninfo_number, 
+      collectioninfo_name, collectionInfo_desc, 
+      added_time, last_modified_time)
+    values (#{collectioninfoId,jdbcType=BIGINT}, #{collectioninfoNumber,jdbcType=VARCHAR}, 
+      #{collectioninfoName,jdbcType=VARCHAR}, #{collectioninfoDesc,jdbcType=VARCHAR}, 
+      #{addedTime,jdbcType=TIMESTAMP}, #{lastModifiedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tanyun.commons.domain.Collectioninfo" >
+    insert into t_gene_collectioninfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="collectioninfoId != null" >
+        collectioninfo_id,
+      </if>
+      <if test="collectioninfoNumber != null" >
+        collectioninfo_number,
+      </if>
+      <if test="collectioninfoName != null" >
+        collectioninfo_name,
+      </if>
+      <if test="collectioninfoDesc != null" >
+        collectionInfo_desc,
+      </if>
+      <if test="addedTime != null" >
+        added_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="collectioninfoId != null" >
+        #{collectioninfoId,jdbcType=BIGINT},
+      </if>
+      <if test="collectioninfoNumber != null" >
+        #{collectioninfoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="collectioninfoName != null" >
+        #{collectioninfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="collectioninfoDesc != null" >
+        #{collectioninfoDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="addedTime != null" >
+        #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tanyun.commons.domain.CollectioninfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_gene_collectioninfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_gene_collectioninfo
+    <set >
+      <if test="record.collectioninfoId != null" >
+        collectioninfo_id = #{record.collectioninfoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.collectioninfoNumber != null" >
+        collectioninfo_number = #{record.collectioninfoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectioninfoName != null" >
+        collectioninfo_name = #{record.collectioninfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectioninfoDesc != null" >
+        collectionInfo_desc = #{record.collectioninfoDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addedTime != null" >
+        added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModifiedTime != null" >
+        last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_gene_collectioninfo
+    set collectioninfo_id = #{record.collectioninfoId,jdbcType=BIGINT},
+      collectioninfo_number = #{record.collectioninfoNumber,jdbcType=VARCHAR},
+      collectioninfo_name = #{record.collectioninfoName,jdbcType=VARCHAR},
+      collectionInfo_desc = #{record.collectioninfoDesc,jdbcType=VARCHAR},
+      added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tanyun.commons.domain.Collectioninfo" >
+    update t_gene_collectioninfo
+    <set >
+      <if test="collectioninfoNumber != null" >
+        collectioninfo_number = #{collectioninfoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="collectioninfoName != null" >
+        collectioninfo_name = #{collectioninfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="collectioninfoDesc != null" >
+        collectionInfo_desc = #{collectioninfoDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="addedTime != null" >
+        added_time = #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where collectioninfo_id = #{collectioninfoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tanyun.commons.domain.Collectioninfo" >
+    update t_gene_collectioninfo
+    set collectioninfo_number = #{collectioninfoNumber,jdbcType=VARCHAR},
+      collectioninfo_name = #{collectioninfoName,jdbcType=VARCHAR},
+      collectionInfo_desc = #{collectioninfoDesc,jdbcType=VARCHAR},
+      added_time = #{addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where collectioninfo_id = #{collectioninfoId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tanyun.commons.dao.SurveyMapper" >
+  <resultMap id="BaseResultMap" type="com.tanyun.commons.domain.Survey" >
+    <id column="survey_id" property="surveyId" jdbcType="BIGINT" />
+    <result column="survey_name" property="surveyName" jdbcType="VARCHAR" />
+    <result column="survey_desc" property="surveyDesc" jdbcType="VARCHAR" />
+    <result column="domain_id" property="domainId" jdbcType="BIGINT" />
+    <result column="added_time" property="addedTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    survey_id, survey_name, survey_desc, domain_id, added_time, last_modified_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tanyun.commons.domain.SurveyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_survey
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_survey
+    where survey_id = #{surveyId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_survey
+    where survey_id = #{surveyId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tanyun.commons.domain.SurveyExample" >
+    delete from t_survey
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tanyun.commons.domain.Survey" >
+    insert into t_survey (survey_id, survey_name, survey_desc, 
+      domain_id, added_time, last_modified_time
+      )
+    values (#{surveyId,jdbcType=BIGINT}, #{surveyName,jdbcType=VARCHAR}, #{surveyDesc,jdbcType=VARCHAR}, 
+      #{domainId,jdbcType=BIGINT}, #{addedTime,jdbcType=TIMESTAMP}, #{lastModifiedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tanyun.commons.domain.Survey" >
+    insert into t_survey
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="surveyId != null" >
+        survey_id,
+      </if>
+      <if test="surveyName != null" >
+        survey_name,
+      </if>
+      <if test="surveyDesc != null" >
+        survey_desc,
+      </if>
+      <if test="domainId != null" >
+        domain_id,
+      </if>
+      <if test="addedTime != null" >
+        added_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="surveyId != null" >
+        #{surveyId,jdbcType=BIGINT},
+      </if>
+      <if test="surveyName != null" >
+        #{surveyName,jdbcType=VARCHAR},
+      </if>
+      <if test="surveyDesc != null" >
+        #{surveyDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="domainId != null" >
+        #{domainId,jdbcType=BIGINT},
+      </if>
+      <if test="addedTime != null" >
+        #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tanyun.commons.domain.SurveyExample" resultType="java.lang.Integer" >
+    select count(*) from t_survey
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_survey
+    <set >
+      <if test="record.surveyId != null" >
+        survey_id = #{record.surveyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.surveyName != null" >
+        survey_name = #{record.surveyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.surveyDesc != null" >
+        survey_desc = #{record.surveyDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domainId != null" >
+        domain_id = #{record.domainId,jdbcType=BIGINT},
+      </if>
+      <if test="record.addedTime != null" >
+        added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModifiedTime != null" >
+        last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_survey
+    set survey_id = #{record.surveyId,jdbcType=BIGINT},
+      survey_name = #{record.surveyName,jdbcType=VARCHAR},
+      survey_desc = #{record.surveyDesc,jdbcType=VARCHAR},
+      domain_id = #{record.domainId,jdbcType=BIGINT},
+      added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tanyun.commons.domain.Survey" >
+    update t_survey
+    <set >
+      <if test="surveyName != null" >
+        survey_name = #{surveyName,jdbcType=VARCHAR},
+      </if>
+      <if test="surveyDesc != null" >
+        survey_desc = #{surveyDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="domainId != null" >
+        domain_id = #{domainId,jdbcType=BIGINT},
+      </if>
+      <if test="addedTime != null" >
+        added_time = #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where survey_id = #{surveyId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tanyun.commons.domain.Survey" >
+    update t_survey
+    set survey_name = #{surveyName,jdbcType=VARCHAR},
+      survey_desc = #{surveyDesc,jdbcType=VARCHAR},
+      domain_id = #{domainId,jdbcType=BIGINT},
+      added_time = #{addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where survey_id = #{surveyId,jdbcType=BIGINT}
+  </update>
+</mapper>

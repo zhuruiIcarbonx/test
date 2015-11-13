@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- (Annotation方式配置services)enable component scanning (beware that this 
+		does not enable mapper scanning!) -->
+	<context:component-scan base-package="com.tanyun.commons.controller" />
+
+	<!-- enable autowire -->
+	<context:annotation-config />
+
+	<!-- 默认的注解映射的支持 -->
+	<mvc:annotation-driven />
+
+	<!-- 拦截器 -->
+<!--	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/news/**"/>
+			<mvc:exclude-mapping path="/news/searchByKeyorId"/>
+			<bean class="com.plugin.interceptors.LoginInterceptor" />
+		</mvc:interceptor>
+
+	</mvc:interceptors>-->
+
+	<bean id="viewResolver"
+		  class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+				  value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 对静态资源文件的访问  方案二 （二选一）-->
+<!--	<mvc:resources mapping="/images/**" location="/images/" cache-period="31556926"/>
+	<mvc:resources mapping="/js/**" location="/js/" cache-period="31556926"/>
+	<mvc:resources mapping="/css/**" location="/css/" cache-period="31556926"/>-->
+
+</beans> 

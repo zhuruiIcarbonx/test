@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tanyun.commons.dao.ProcessinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.tanyun.commons.domain.Processinfo" >
+    <id column="processinfo_id" property="processinfoId" jdbcType="BIGINT" />
+    <result column="processinfo_number" property="processinfoNumber" jdbcType="VARCHAR" />
+    <result column="processinfo_name" property="processinfoName" jdbcType="VARCHAR" />
+    <result column="processinfo_desc" property="processinfoDesc" jdbcType="VARCHAR" />
+    <result column="sample_collector_type" property="sampleCollectorType" jdbcType="VARCHAR" />
+    <result column="sample_logistic_type" property="sampleLogisticType" jdbcType="VARCHAR" />
+    <result column="sample_extraction_type" property="sampleExtractionType" jdbcType="VARCHAR" />
+    <result column="sampleSequenceType" property="samplesequencetype" jdbcType="VARCHAR" />
+    <result column="added_time" property="addedTime" jdbcType="TIMESTAMP" />
+    <result column="lastmodified_time" property="lastmodifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    processinfo_id, processinfo_number, processinfo_name, processinfo_desc, sample_collector_type, 
+    sample_logistic_type, sample_extraction_type, sampleSequenceType, added_time, lastmodified_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tanyun.commons.domain.ProcessinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_product_processinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_processinfo
+    where processinfo_id = #{processinfoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_product_processinfo
+    where processinfo_id = #{processinfoId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tanyun.commons.domain.ProcessinfoExample" >
+    delete from t_product_processinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tanyun.commons.domain.Processinfo" >
+    insert into t_product_processinfo (processinfo_id, processinfo_number, 
+      processinfo_name, processinfo_desc, sample_collector_type, 
+      sample_logistic_type, sample_extraction_type, 
+      sampleSequenceType, added_time, lastmodified_time
+      )
+    values (#{processinfoId,jdbcType=BIGINT}, #{processinfoNumber,jdbcType=VARCHAR}, 
+      #{processinfoName,jdbcType=VARCHAR}, #{processinfoDesc,jdbcType=VARCHAR}, #{sampleCollectorType,jdbcType=VARCHAR}, 
+      #{sampleLogisticType,jdbcType=VARCHAR}, #{sampleExtractionType,jdbcType=VARCHAR}, 
+      #{samplesequencetype,jdbcType=VARCHAR}, #{addedTime,jdbcType=TIMESTAMP}, #{lastmodifiedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tanyun.commons.domain.Processinfo" >
+    insert into t_product_processinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="processinfoId != null" >
+        processinfo_id,
+      </if>
+      <if test="processinfoNumber != null" >
+        processinfo_number,
+      </if>
+      <if test="processinfoName != null" >
+        processinfo_name,
+      </if>
+      <if test="processinfoDesc != null" >
+        processinfo_desc,
+      </if>
+      <if test="sampleCollectorType != null" >
+        sample_collector_type,
+      </if>
+      <if test="sampleLogisticType != null" >
+        sample_logistic_type,
+      </if>
+      <if test="sampleExtractionType != null" >
+        sample_extraction_type,
+      </if>
+      <if test="samplesequencetype != null" >
+        sampleSequenceType,
+      </if>
+      <if test="addedTime != null" >
+        added_time,
+      </if>
+      <if test="lastmodifiedTime != null" >
+        lastmodified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="processinfoId != null" >
+        #{processinfoId,jdbcType=BIGINT},
+      </if>
+      <if test="processinfoNumber != null" >
+        #{processinfoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="processinfoName != null" >
+        #{processinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="processinfoDesc != null" >
+        #{processinfoDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="sampleCollectorType != null" >
+        #{sampleCollectorType,jdbcType=VARCHAR},
+      </if>
+      <if test="sampleLogisticType != null" >
+        #{sampleLogisticType,jdbcType=VARCHAR},
+      </if>
+      <if test="sampleExtractionType != null" >
+        #{sampleExtractionType,jdbcType=VARCHAR},
+      </if>
+      <if test="samplesequencetype != null" >
+        #{samplesequencetype,jdbcType=VARCHAR},
+      </if>
+      <if test="addedTime != null" >
+        #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifiedTime != null" >
+        #{lastmodifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tanyun.commons.domain.ProcessinfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_product_processinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_product_processinfo
+    <set >
+      <if test="record.processinfoId != null" >
+        processinfo_id = #{record.processinfoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.processinfoNumber != null" >
+        processinfo_number = #{record.processinfoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processinfoName != null" >
+        processinfo_name = #{record.processinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processinfoDesc != null" >
+        processinfo_desc = #{record.processinfoDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sampleCollectorType != null" >
+        sample_collector_type = #{record.sampleCollectorType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sampleLogisticType != null" >
+        sample_logistic_type = #{record.sampleLogisticType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sampleExtractionType != null" >
+        sample_extraction_type = #{record.sampleExtractionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.samplesequencetype != null" >
+        sampleSequenceType = #{record.samplesequencetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addedTime != null" >
+        added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastmodifiedTime != null" >
+        lastmodified_time = #{record.lastmodifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_product_processinfo
+    set processinfo_id = #{record.processinfoId,jdbcType=BIGINT},
+      processinfo_number = #{record.processinfoNumber,jdbcType=VARCHAR},
+      processinfo_name = #{record.processinfoName,jdbcType=VARCHAR},
+      processinfo_desc = #{record.processinfoDesc,jdbcType=VARCHAR},
+      sample_collector_type = #{record.sampleCollectorType,jdbcType=VARCHAR},
+      sample_logistic_type = #{record.sampleLogisticType,jdbcType=VARCHAR},
+      sample_extraction_type = #{record.sampleExtractionType,jdbcType=VARCHAR},
+      sampleSequenceType = #{record.samplesequencetype,jdbcType=VARCHAR},
+      added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      lastmodified_time = #{record.lastmodifiedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tanyun.commons.domain.Processinfo" >
+    update t_product_processinfo
+    <set >
+      <if test="processinfoNumber != null" >
+        processinfo_number = #{processinfoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="processinfoName != null" >
+        processinfo_name = #{processinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="processinfoDesc != null" >
+        processinfo_desc = #{processinfoDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="sampleCollectorType != null" >
+        sample_collector_type = #{sampleCollectorType,jdbcType=VARCHAR},
+      </if>
+      <if test="sampleLogisticType != null" >
+        sample_logistic_type = #{sampleLogisticType,jdbcType=VARCHAR},
+      </if>
+      <if test="sampleExtractionType != null" >
+        sample_extraction_type = #{sampleExtractionType,jdbcType=VARCHAR},
+      </if>
+      <if test="samplesequencetype != null" >
+        sampleSequenceType = #{samplesequencetype,jdbcType=VARCHAR},
+      </if>
+      <if test="addedTime != null" >
+        added_time = #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifiedTime != null" >
+        lastmodified_time = #{lastmodifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where processinfo_id = #{processinfoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tanyun.commons.domain.Processinfo" >
+    update t_product_processinfo
+    set processinfo_number = #{processinfoNumber,jdbcType=VARCHAR},
+      processinfo_name = #{processinfoName,jdbcType=VARCHAR},
+      processinfo_desc = #{processinfoDesc,jdbcType=VARCHAR},
+      sample_collector_type = #{sampleCollectorType,jdbcType=VARCHAR},
+      sample_logistic_type = #{sampleLogisticType,jdbcType=VARCHAR},
+      sample_extraction_type = #{sampleExtractionType,jdbcType=VARCHAR},
+      sampleSequenceType = #{samplesequencetype,jdbcType=VARCHAR},
+      added_time = #{addedTime,jdbcType=TIMESTAMP},
+      lastmodified_time = #{lastmodifiedTime,jdbcType=TIMESTAMP}
+    where processinfo_id = #{processinfoId,jdbcType=BIGINT}
+  </update>
+</mapper>

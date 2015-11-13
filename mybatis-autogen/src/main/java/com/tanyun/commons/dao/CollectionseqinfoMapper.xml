@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tanyun.commons.dao.CollectionseqinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.tanyun.commons.domain.Collectionseqinfo" >
+    <id column="collectionseqinfo_id" property="collectionseqinfoId" jdbcType="BIGINT" />
+    <result column="collectionseqinfo_number" property="collectionseqinfoNumber" jdbcType="VARCHAR" />
+    <result column="collectionseqinfo_name" property="collectionseqinfoName" jdbcType="VARCHAR" />
+    <result column="collectionseqinfo_desc" property="collectionseqinfoDesc" jdbcType="VARCHAR" />
+    <result column="seqscope_id" property="seqscopeId" jdbcType="BIGINT" />
+    <result column="collectioninfo_id" property="collectioninfoId" jdbcType="BIGINT" />
+    <result column="is_medicaid" property="isMedicaid" jdbcType="INTEGER" />
+    <result column="added_time" property="addedTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    collectionseqinfo_id, collectionseqinfo_number, collectionseqinfo_name, collectionseqinfo_desc, 
+    seqscope_id, collectioninfo_id, is_medicaid, added_time, last_modified_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tanyun.commons.domain.CollectionseqinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_gene_collectionseqinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_gene_collectionseqinfo
+    where collectionseqinfo_id = #{collectionseqinfoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_gene_collectionseqinfo
+    where collectionseqinfo_id = #{collectionseqinfoId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tanyun.commons.domain.CollectionseqinfoExample" >
+    delete from t_gene_collectionseqinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tanyun.commons.domain.Collectionseqinfo" >
+    insert into t_gene_collectionseqinfo (collectionseqinfo_id, collectionseqinfo_number, 
+      collectionseqinfo_name, collectionseqinfo_desc, 
+      seqscope_id, collectioninfo_id, is_medicaid, 
+      added_time, last_modified_time)
+    values (#{collectionseqinfoId,jdbcType=BIGINT}, #{collectionseqinfoNumber,jdbcType=VARCHAR}, 
+      #{collectionseqinfoName,jdbcType=VARCHAR}, #{collectionseqinfoDesc,jdbcType=VARCHAR}, 
+      #{seqscopeId,jdbcType=BIGINT}, #{collectioninfoId,jdbcType=BIGINT}, #{isMedicaid,jdbcType=INTEGER}, 
+      #{addedTime,jdbcType=TIMESTAMP}, #{lastModifiedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tanyun.commons.domain.Collectionseqinfo" >
+    insert into t_gene_collectionseqinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="collectionseqinfoId != null" >
+        collectionseqinfo_id,
+      </if>
+      <if test="collectionseqinfoNumber != null" >
+        collectionseqinfo_number,
+      </if>
+      <if test="collectionseqinfoName != null" >
+        collectionseqinfo_name,
+      </if>
+      <if test="collectionseqinfoDesc != null" >
+        collectionseqinfo_desc,
+      </if>
+      <if test="seqscopeId != null" >
+        seqscope_id,
+      </if>
+      <if test="collectioninfoId != null" >
+        collectioninfo_id,
+      </if>
+      <if test="isMedicaid != null" >
+        is_medicaid,
+      </if>
+      <if test="addedTime != null" >
+        added_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="collectionseqinfoId != null" >
+        #{collectionseqinfoId,jdbcType=BIGINT},
+      </if>
+      <if test="collectionseqinfoNumber != null" >
+        #{collectionseqinfoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionseqinfoName != null" >
+        #{collectionseqinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionseqinfoDesc != null" >
+        #{collectionseqinfoDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="seqscopeId != null" >
+        #{seqscopeId,jdbcType=BIGINT},
+      </if>
+      <if test="collectioninfoId != null" >
+        #{collectioninfoId,jdbcType=BIGINT},
+      </if>
+      <if test="isMedicaid != null" >
+        #{isMedicaid,jdbcType=INTEGER},
+      </if>
+      <if test="addedTime != null" >
+        #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tanyun.commons.domain.CollectionseqinfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_gene_collectionseqinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_gene_collectionseqinfo
+    <set >
+      <if test="record.collectionseqinfoId != null" >
+        collectionseqinfo_id = #{record.collectionseqinfoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.collectionseqinfoNumber != null" >
+        collectionseqinfo_number = #{record.collectionseqinfoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectionseqinfoName != null" >
+        collectionseqinfo_name = #{record.collectionseqinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectionseqinfoDesc != null" >
+        collectionseqinfo_desc = #{record.collectionseqinfoDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seqscopeId != null" >
+        seqscope_id = #{record.seqscopeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.collectioninfoId != null" >
+        collectioninfo_id = #{record.collectioninfoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.isMedicaid != null" >
+        is_medicaid = #{record.isMedicaid,jdbcType=INTEGER},
+      </if>
+      <if test="record.addedTime != null" >
+        added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModifiedTime != null" >
+        last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_gene_collectionseqinfo
+    set collectionseqinfo_id = #{record.collectionseqinfoId,jdbcType=BIGINT},
+      collectionseqinfo_number = #{record.collectionseqinfoNumber,jdbcType=VARCHAR},
+      collectionseqinfo_name = #{record.collectionseqinfoName,jdbcType=VARCHAR},
+      collectionseqinfo_desc = #{record.collectionseqinfoDesc,jdbcType=VARCHAR},
+      seqscope_id = #{record.seqscopeId,jdbcType=BIGINT},
+      collectioninfo_id = #{record.collectioninfoId,jdbcType=BIGINT},
+      is_medicaid = #{record.isMedicaid,jdbcType=INTEGER},
+      added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tanyun.commons.domain.Collectionseqinfo" >
+    update t_gene_collectionseqinfo
+    <set >
+      <if test="collectionseqinfoNumber != null" >
+        collectionseqinfo_number = #{collectionseqinfoNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionseqinfoName != null" >
+        collectionseqinfo_name = #{collectionseqinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionseqinfoDesc != null" >
+        collectionseqinfo_desc = #{collectionseqinfoDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="seqscopeId != null" >
+        seqscope_id = #{seqscopeId,jdbcType=BIGINT},
+      </if>
+      <if test="collectioninfoId != null" >
+        collectioninfo_id = #{collectioninfoId,jdbcType=BIGINT},
+      </if>
+      <if test="isMedicaid != null" >
+        is_medicaid = #{isMedicaid,jdbcType=INTEGER},
+      </if>
+      <if test="addedTime != null" >
+        added_time = #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where collectionseqinfo_id = #{collectionseqinfoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tanyun.commons.domain.Collectionseqinfo" >
+    update t_gene_collectionseqinfo
+    set collectionseqinfo_number = #{collectionseqinfoNumber,jdbcType=VARCHAR},
+      collectionseqinfo_name = #{collectionseqinfoName,jdbcType=VARCHAR},
+      collectionseqinfo_desc = #{collectionseqinfoDesc,jdbcType=VARCHAR},
+      seqscope_id = #{seqscopeId,jdbcType=BIGINT},
+      collectioninfo_id = #{collectioninfoId,jdbcType=BIGINT},
+      is_medicaid = #{isMedicaid,jdbcType=INTEGER},
+      added_time = #{addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where collectionseqinfo_id = #{collectionseqinfoId,jdbcType=BIGINT}
+  </update>
+</mapper>

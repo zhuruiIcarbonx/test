@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tanyun.commons.dao.RepdataunitMapper" >
+  <resultMap id="BaseResultMap" type="com.tanyun.commons.domain.Repdataunit" >
+    <id column="reportdataunit_id" property="reportdataunitId" jdbcType="BIGINT" />
+    <result column="reportdataunit_number" property="reportdataunitNumber" jdbcType="VARCHAR" />
+    <result column="reportdataunit_name" property="reportdataunitName" jdbcType="VARCHAR" />
+    <result column="reportdataunit_desc" property="reportdataunitDesc" jdbcType="VARCHAR" />
+    <result column="user_kind" property="userKind" jdbcType="VARCHAR" />
+    <result column="added_time" property="addedTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    reportdataunit_id, reportdataunit_number, reportdataunit_name, reportdataunit_desc, 
+    user_kind, added_time, last_modified_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tanyun.commons.domain.RepdataunitExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_repdata_repdataunit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_repdata_repdataunit
+    where reportdataunit_id = #{reportdataunitId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_repdata_repdataunit
+    where reportdataunit_id = #{reportdataunitId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tanyun.commons.domain.RepdataunitExample" >
+    delete from t_repdata_repdataunit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tanyun.commons.domain.Repdataunit" >
+    insert into t_repdata_repdataunit (reportdataunit_id, reportdataunit_number, 
+      reportdataunit_name, reportdataunit_desc, 
+      user_kind, added_time, last_modified_time
+      )
+    values (#{reportdataunitId,jdbcType=BIGINT}, #{reportdataunitNumber,jdbcType=VARCHAR}, 
+      #{reportdataunitName,jdbcType=VARCHAR}, #{reportdataunitDesc,jdbcType=VARCHAR}, 
+      #{userKind,jdbcType=VARCHAR}, #{addedTime,jdbcType=TIMESTAMP}, #{lastModifiedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tanyun.commons.domain.Repdataunit" >
+    insert into t_repdata_repdataunit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reportdataunitId != null" >
+        reportdataunit_id,
+      </if>
+      <if test="reportdataunitNumber != null" >
+        reportdataunit_number,
+      </if>
+      <if test="reportdataunitName != null" >
+        reportdataunit_name,
+      </if>
+      <if test="reportdataunitDesc != null" >
+        reportdataunit_desc,
+      </if>
+      <if test="userKind != null" >
+        user_kind,
+      </if>
+      <if test="addedTime != null" >
+        added_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reportdataunitId != null" >
+        #{reportdataunitId,jdbcType=BIGINT},
+      </if>
+      <if test="reportdataunitNumber != null" >
+        #{reportdataunitNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="reportdataunitName != null" >
+        #{reportdataunitName,jdbcType=VARCHAR},
+      </if>
+      <if test="reportdataunitDesc != null" >
+        #{reportdataunitDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="userKind != null" >
+        #{userKind,jdbcType=VARCHAR},
+      </if>
+      <if test="addedTime != null" >
+        #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tanyun.commons.domain.RepdataunitExample" resultType="java.lang.Integer" >
+    select count(*) from t_repdata_repdataunit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_repdata_repdataunit
+    <set >
+      <if test="record.reportdataunitId != null" >
+        reportdataunit_id = #{record.reportdataunitId,jdbcType=BIGINT},
+      </if>
+      <if test="record.reportdataunitNumber != null" >
+        reportdataunit_number = #{record.reportdataunitNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reportdataunitName != null" >
+        reportdataunit_name = #{record.reportdataunitName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reportdataunitDesc != null" >
+        reportdataunit_desc = #{record.reportdataunitDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userKind != null" >
+        user_kind = #{record.userKind,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addedTime != null" >
+        added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModifiedTime != null" >
+        last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_repdata_repdataunit
+    set reportdataunit_id = #{record.reportdataunitId,jdbcType=BIGINT},
+      reportdataunit_number = #{record.reportdataunitNumber,jdbcType=VARCHAR},
+      reportdataunit_name = #{record.reportdataunitName,jdbcType=VARCHAR},
+      reportdataunit_desc = #{record.reportdataunitDesc,jdbcType=VARCHAR},
+      user_kind = #{record.userKind,jdbcType=VARCHAR},
+      added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tanyun.commons.domain.Repdataunit" >
+    update t_repdata_repdataunit
+    <set >
+      <if test="reportdataunitNumber != null" >
+        reportdataunit_number = #{reportdataunitNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="reportdataunitName != null" >
+        reportdataunit_name = #{reportdataunitName,jdbcType=VARCHAR},
+      </if>
+      <if test="reportdataunitDesc != null" >
+        reportdataunit_desc = #{reportdataunitDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="userKind != null" >
+        user_kind = #{userKind,jdbcType=VARCHAR},
+      </if>
+      <if test="addedTime != null" >
+        added_time = #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where reportdataunit_id = #{reportdataunitId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tanyun.commons.domain.Repdataunit" >
+    update t_repdata_repdataunit
+    set reportdataunit_number = #{reportdataunitNumber,jdbcType=VARCHAR},
+      reportdataunit_name = #{reportdataunitName,jdbcType=VARCHAR},
+      reportdataunit_desc = #{reportdataunitDesc,jdbcType=VARCHAR},
+      user_kind = #{userKind,jdbcType=VARCHAR},
+      added_time = #{addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where reportdataunit_id = #{reportdataunitId,jdbcType=BIGINT}
+  </update>
+</mapper>

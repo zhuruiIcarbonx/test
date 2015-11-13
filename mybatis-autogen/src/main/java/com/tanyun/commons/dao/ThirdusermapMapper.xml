@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tanyun.commons.dao.ThirdusermapMapper" >
+  <resultMap id="BaseResultMap" type="com.tanyun.commons.domain.Thirdusermap" >
+    <id column="thirdusermap_id" property="thirdusermapId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="th_id" property="thId" jdbcType="BIGINT" />
+    <result column="th_user_id" property="thUserId" jdbcType="VARCHAR" />
+    <result column="client_ip" property="clientIp" jdbcType="VARCHAR" />
+    <result column="client_id" property="clientId" jdbcType="VARCHAR" />
+    <result column="th_name" property="thName" jdbcType="VARCHAR" />
+    <result column="th_photo_url" property="thPhotoUrl" jdbcType="VARCHAR" />
+    <result column="added_time" property="addedTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    thirdusermap_id, user_id, th_id, th_user_id, client_ip, client_id, th_name, th_photo_url, 
+    added_time, last_modified_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tanyun.commons.domain.ThirdusermapExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_user_thirdusermap
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_thirdusermap
+    where thirdusermap_id = #{thirdusermapId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_user_thirdusermap
+    where thirdusermap_id = #{thirdusermapId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tanyun.commons.domain.ThirdusermapExample" >
+    delete from t_user_thirdusermap
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tanyun.commons.domain.Thirdusermap" >
+    insert into t_user_thirdusermap (thirdusermap_id, user_id, th_id, 
+      th_user_id, client_ip, client_id, 
+      th_name, th_photo_url, added_time, 
+      last_modified_time)
+    values (#{thirdusermapId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{thId,jdbcType=BIGINT}, 
+      #{thUserId,jdbcType=VARCHAR}, #{clientIp,jdbcType=VARCHAR}, #{clientId,jdbcType=VARCHAR}, 
+      #{thName,jdbcType=VARCHAR}, #{thPhotoUrl,jdbcType=VARCHAR}, #{addedTime,jdbcType=TIMESTAMP}, 
+      #{lastModifiedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tanyun.commons.domain.Thirdusermap" >
+    insert into t_user_thirdusermap
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="thirdusermapId != null" >
+        thirdusermap_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="thId != null" >
+        th_id,
+      </if>
+      <if test="thUserId != null" >
+        th_user_id,
+      </if>
+      <if test="clientIp != null" >
+        client_ip,
+      </if>
+      <if test="clientId != null" >
+        client_id,
+      </if>
+      <if test="thName != null" >
+        th_name,
+      </if>
+      <if test="thPhotoUrl != null" >
+        th_photo_url,
+      </if>
+      <if test="addedTime != null" >
+        added_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="thirdusermapId != null" >
+        #{thirdusermapId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="thId != null" >
+        #{thId,jdbcType=BIGINT},
+      </if>
+      <if test="thUserId != null" >
+        #{thUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientIp != null" >
+        #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="thName != null" >
+        #{thName,jdbcType=VARCHAR},
+      </if>
+      <if test="thPhotoUrl != null" >
+        #{thPhotoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="addedTime != null" >
+        #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tanyun.commons.domain.ThirdusermapExample" resultType="java.lang.Integer" >
+    select count(*) from t_user_thirdusermap
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_user_thirdusermap
+    <set >
+      <if test="record.thirdusermapId != null" >
+        thirdusermap_id = #{record.thirdusermapId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.thId != null" >
+        th_id = #{record.thId,jdbcType=BIGINT},
+      </if>
+      <if test="record.thUserId != null" >
+        th_user_id = #{record.thUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientIp != null" >
+        client_ip = #{record.clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientId != null" >
+        client_id = #{record.clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thName != null" >
+        th_name = #{record.thName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thPhotoUrl != null" >
+        th_photo_url = #{record.thPhotoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addedTime != null" >
+        added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModifiedTime != null" >
+        last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_user_thirdusermap
+    set thirdusermap_id = #{record.thirdusermapId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      th_id = #{record.thId,jdbcType=BIGINT},
+      th_user_id = #{record.thUserId,jdbcType=VARCHAR},
+      client_ip = #{record.clientIp,jdbcType=VARCHAR},
+      client_id = #{record.clientId,jdbcType=VARCHAR},
+      th_name = #{record.thName,jdbcType=VARCHAR},
+      th_photo_url = #{record.thPhotoUrl,jdbcType=VARCHAR},
+      added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tanyun.commons.domain.Thirdusermap" >
+    update t_user_thirdusermap
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="thId != null" >
+        th_id = #{thId,jdbcType=BIGINT},
+      </if>
+      <if test="thUserId != null" >
+        th_user_id = #{thUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientIp != null" >
+        client_ip = #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="clientId != null" >
+        client_id = #{clientId,jdbcType=VARCHAR},
+      </if>
+      <if test="thName != null" >
+        th_name = #{thName,jdbcType=VARCHAR},
+      </if>
+      <if test="thPhotoUrl != null" >
+        th_photo_url = #{thPhotoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="addedTime != null" >
+        added_time = #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where thirdusermap_id = #{thirdusermapId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tanyun.commons.domain.Thirdusermap" >
+    update t_user_thirdusermap
+    set user_id = #{userId,jdbcType=BIGINT},
+      th_id = #{thId,jdbcType=BIGINT},
+      th_user_id = #{thUserId,jdbcType=VARCHAR},
+      client_ip = #{clientIp,jdbcType=VARCHAR},
+      client_id = #{clientId,jdbcType=VARCHAR},
+      th_name = #{thName,jdbcType=VARCHAR},
+      th_photo_url = #{thPhotoUrl,jdbcType=VARCHAR},
+      added_time = #{addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where thirdusermap_id = #{thirdusermapId,jdbcType=BIGINT}
+  </update>
+</mapper>

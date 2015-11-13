@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tanyun.commons.dao.TemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.tanyun.commons.domain.Template" >
+    <id column="template_id" property="templateId" jdbcType="BIGINT" />
+    <result column="template_number" property="templateNumber" jdbcType="VARCHAR" />
+    <result column="repdataunit_id" property="repdataunitId" jdbcType="BIGINT" />
+    <result column="repscene_id" property="repsceneId" jdbcType="BIGINT" />
+    <result column="added_time" property="addedTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tanyun.commons.domain.Template" extends="BaseResultMap" >
+    <result column="template_content" property="templateContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    template_id, template_number, repdataunit_id, repscene_id, added_time, last_modified_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    template_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.tanyun.commons.domain.TemplateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_repdata_template
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tanyun.commons.domain.TemplateExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_repdata_template
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_repdata_template
+    where template_id = #{templateId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_repdata_template
+    where template_id = #{templateId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tanyun.commons.domain.TemplateExample" >
+    delete from t_repdata_template
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tanyun.commons.domain.Template" >
+    insert into t_repdata_template (template_id, template_number, repdataunit_id, 
+      repscene_id, added_time, last_modified_time, 
+      template_content)
+    values (#{templateId,jdbcType=BIGINT}, #{templateNumber,jdbcType=VARCHAR}, #{repdataunitId,jdbcType=BIGINT}, 
+      #{repsceneId,jdbcType=BIGINT}, #{addedTime,jdbcType=TIMESTAMP}, #{lastModifiedTime,jdbcType=TIMESTAMP}, 
+      #{templateContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tanyun.commons.domain.Template" >
+    insert into t_repdata_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="templateId != null" >
+        template_id,
+      </if>
+      <if test="templateNumber != null" >
+        template_number,
+      </if>
+      <if test="repdataunitId != null" >
+        repdataunit_id,
+      </if>
+      <if test="repsceneId != null" >
+        repscene_id,
+      </if>
+      <if test="addedTime != null" >
+        added_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+      <if test="templateContent != null" >
+        template_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="templateId != null" >
+        #{templateId,jdbcType=BIGINT},
+      </if>
+      <if test="templateNumber != null" >
+        #{templateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="repdataunitId != null" >
+        #{repdataunitId,jdbcType=BIGINT},
+      </if>
+      <if test="repsceneId != null" >
+        #{repsceneId,jdbcType=BIGINT},
+      </if>
+      <if test="addedTime != null" >
+        #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="templateContent != null" >
+        #{templateContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tanyun.commons.domain.TemplateExample" resultType="java.lang.Integer" >
+    select count(*) from t_repdata_template
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_repdata_template
+    <set >
+      <if test="record.templateId != null" >
+        template_id = #{record.templateId,jdbcType=BIGINT},
+      </if>
+      <if test="record.templateNumber != null" >
+        template_number = #{record.templateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repdataunitId != null" >
+        repdataunit_id = #{record.repdataunitId,jdbcType=BIGINT},
+      </if>
+      <if test="record.repsceneId != null" >
+        repscene_id = #{record.repsceneId,jdbcType=BIGINT},
+      </if>
+      <if test="record.addedTime != null" >
+        added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModifiedTime != null" >
+        last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.templateContent != null" >
+        template_content = #{record.templateContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_repdata_template
+    set template_id = #{record.templateId,jdbcType=BIGINT},
+      template_number = #{record.templateNumber,jdbcType=VARCHAR},
+      repdataunit_id = #{record.repdataunitId,jdbcType=BIGINT},
+      repscene_id = #{record.repsceneId,jdbcType=BIGINT},
+      added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP},
+      template_content = #{record.templateContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_repdata_template
+    set template_id = #{record.templateId,jdbcType=BIGINT},
+      template_number = #{record.templateNumber,jdbcType=VARCHAR},
+      repdataunit_id = #{record.repdataunitId,jdbcType=BIGINT},
+      repscene_id = #{record.repsceneId,jdbcType=BIGINT},
+      added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tanyun.commons.domain.Template" >
+    update t_repdata_template
+    <set >
+      <if test="templateNumber != null" >
+        template_number = #{templateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="repdataunitId != null" >
+        repdataunit_id = #{repdataunitId,jdbcType=BIGINT},
+      </if>
+      <if test="repsceneId != null" >
+        repscene_id = #{repsceneId,jdbcType=BIGINT},
+      </if>
+      <if test="addedTime != null" >
+        added_time = #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="templateContent != null" >
+        template_content = #{templateContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where template_id = #{templateId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tanyun.commons.domain.Template" >
+    update t_repdata_template
+    set template_number = #{templateNumber,jdbcType=VARCHAR},
+      repdataunit_id = #{repdataunitId,jdbcType=BIGINT},
+      repscene_id = #{repsceneId,jdbcType=BIGINT},
+      added_time = #{addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      template_content = #{templateContent,jdbcType=LONGVARCHAR}
+    where template_id = #{templateId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tanyun.commons.domain.Template" >
+    update t_repdata_template
+    set template_number = #{templateNumber,jdbcType=VARCHAR},
+      repdataunit_id = #{repdataunitId,jdbcType=BIGINT},
+      repscene_id = #{repsceneId,jdbcType=BIGINT},
+      added_time = #{addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where template_id = #{templateId,jdbcType=BIGINT}
+  </update>
+</mapper>

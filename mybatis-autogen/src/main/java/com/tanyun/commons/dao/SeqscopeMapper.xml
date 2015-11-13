@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tanyun.commons.dao.SeqscopeMapper" >
+  <resultMap id="BaseResultMap" type="com.tanyun.commons.domain.Seqscope" >
+    <id column="seqscope_id" property="seqscopeId" jdbcType="BIGINT" />
+    <result column="seqscope_number" property="seqscopeNumber" jdbcType="VARCHAR" />
+    <result column="seqscope_name" property="seqscopeName" jdbcType="VARCHAR" />
+    <result column="added_time" property="addedTime" jdbcType="TIMESTAMP" />
+    <result column="last_modified_time" property="lastModifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tanyun.commons.domain.Seqscope" extends="BaseResultMap" >
+    <result column="seqscope_desc" property="seqscopeDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    seqscope_id, seqscope_number, seqscope_name, added_time, last_modified_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    seqscope_desc
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.tanyun.commons.domain.SeqscopeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_gene_seqscope
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tanyun.commons.domain.SeqscopeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_gene_seqscope
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_gene_seqscope
+    where seqscope_id = #{seqscopeId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_gene_seqscope
+    where seqscope_id = #{seqscopeId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tanyun.commons.domain.SeqscopeExample" >
+    delete from t_gene_seqscope
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tanyun.commons.domain.Seqscope" >
+    insert into t_gene_seqscope (seqscope_id, seqscope_number, seqscope_name, 
+      added_time, last_modified_time, seqscope_desc
+      )
+    values (#{seqscopeId,jdbcType=BIGINT}, #{seqscopeNumber,jdbcType=VARCHAR}, #{seqscopeName,jdbcType=VARCHAR}, 
+      #{addedTime,jdbcType=TIMESTAMP}, #{lastModifiedTime,jdbcType=TIMESTAMP}, #{seqscopeDesc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tanyun.commons.domain.Seqscope" >
+    insert into t_gene_seqscope
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seqscopeId != null" >
+        seqscope_id,
+      </if>
+      <if test="seqscopeNumber != null" >
+        seqscope_number,
+      </if>
+      <if test="seqscopeName != null" >
+        seqscope_name,
+      </if>
+      <if test="addedTime != null" >
+        added_time,
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time,
+      </if>
+      <if test="seqscopeDesc != null" >
+        seqscope_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seqscopeId != null" >
+        #{seqscopeId,jdbcType=BIGINT},
+      </if>
+      <if test="seqscopeNumber != null" >
+        #{seqscopeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="seqscopeName != null" >
+        #{seqscopeName,jdbcType=VARCHAR},
+      </if>
+      <if test="addedTime != null" >
+        #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seqscopeDesc != null" >
+        #{seqscopeDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tanyun.commons.domain.SeqscopeExample" resultType="java.lang.Integer" >
+    select count(*) from t_gene_seqscope
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_gene_seqscope
+    <set >
+      <if test="record.seqscopeId != null" >
+        seqscope_id = #{record.seqscopeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.seqscopeNumber != null" >
+        seqscope_number = #{record.seqscopeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seqscopeName != null" >
+        seqscope_name = #{record.seqscopeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addedTime != null" >
+        added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModifiedTime != null" >
+        last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.seqscopeDesc != null" >
+        seqscope_desc = #{record.seqscopeDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_gene_seqscope
+    set seqscope_id = #{record.seqscopeId,jdbcType=BIGINT},
+      seqscope_number = #{record.seqscopeNumber,jdbcType=VARCHAR},
+      seqscope_name = #{record.seqscopeName,jdbcType=VARCHAR},
+      added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP},
+      seqscope_desc = #{record.seqscopeDesc,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_gene_seqscope
+    set seqscope_id = #{record.seqscopeId,jdbcType=BIGINT},
+      seqscope_number = #{record.seqscopeNumber,jdbcType=VARCHAR},
+      seqscope_name = #{record.seqscopeName,jdbcType=VARCHAR},
+      added_time = #{record.addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{record.lastModifiedTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tanyun.commons.domain.Seqscope" >
+    update t_gene_seqscope
+    <set >
+      <if test="seqscopeNumber != null" >
+        seqscope_number = #{seqscopeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="seqscopeName != null" >
+        seqscope_name = #{seqscopeName,jdbcType=VARCHAR},
+      </if>
+      <if test="addedTime != null" >
+        added_time = #{addedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifiedTime != null" >
+        last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seqscopeDesc != null" >
+        seqscope_desc = #{seqscopeDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where seqscope_id = #{seqscopeId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tanyun.commons.domain.Seqscope" >
+    update t_gene_seqscope
+    set seqscope_number = #{seqscopeNumber,jdbcType=VARCHAR},
+      seqscope_name = #{seqscopeName,jdbcType=VARCHAR},
+      added_time = #{addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP},
+      seqscope_desc = #{seqscopeDesc,jdbcType=LONGVARCHAR}
+    where seqscope_id = #{seqscopeId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tanyun.commons.domain.Seqscope" >
+    update t_gene_seqscope
+    set seqscope_number = #{seqscopeNumber,jdbcType=VARCHAR},
+      seqscope_name = #{seqscopeName,jdbcType=VARCHAR},
+      added_time = #{addedTime,jdbcType=TIMESTAMP},
+      last_modified_time = #{lastModifiedTime,jdbcType=TIMESTAMP}
+    where seqscope_id = #{seqscopeId,jdbcType=BIGINT}
+  </update>
+</mapper>
